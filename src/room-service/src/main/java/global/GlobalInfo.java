@@ -15,7 +15,7 @@ public class GlobalInfo {
 	private static int alpha = 0;
 	private static boolean lastLight = false;
 	private static LocalTime lastTime = LocalTime.now();
-	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH mm ss");
+	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 	private static Map<String, Long> durationLightOn = new HashMap<>();
 	
 	public static void updateLightHours(boolean ll) {
@@ -24,7 +24,7 @@ public class GlobalInfo {
 			lastLight = true;
 		}else if(lastLight == true && ll == false) {
 			lastLight = false;
-			long hours = Duration.between(lastTime, LocalTime.now()).toMinutes();
+			long hours = Duration.between(lastTime, LocalTime.now()).toHours();
 			durationLightOn.put(formatter.format(lastTime), hours);
 		}
 	}
@@ -41,5 +41,32 @@ public class GlobalInfo {
 		return durationLightOn;
 	}
 	
+	public static void setControl(boolean control) {
+		adminControl = control;
+	}
+	
+	public static void setAlpha(int alp) {
+		alpha = alp;
+	}
+	
+	public static void setLight(String s) {
+		if(s.equals("on")) {
+			lightControl = true;
+		}else {
+			lightControl = false;
+		}
+	}
+	
+	public static int getAlpha() {
+		return alpha;
+	}
+	
+	public static boolean getLight() {
+		return lightControl;
+	}
+	
+	public static boolean getAdminControl() {
+		return adminControl;
+	}
 	
 }

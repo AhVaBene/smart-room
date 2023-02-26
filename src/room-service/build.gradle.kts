@@ -15,6 +15,7 @@ repositories {
 }
 
 val vertxVersion = "4.3.8"
+val freemarkerVersion = "2.3.31"
 val junitJupiterVersion = "5.9.1"
 
 val mainVerticleName = "com.example.starter.MainVerticle"
@@ -31,6 +32,7 @@ dependencies {
   implementation(platform("io.vertx:vertx-stack-depchain:$vertxVersion"))
   implementation("io.vertx:vertx-web")
   implementation("io.vertx:vertx-mqtt")
+  implementation("org.freemarker:freemarker:$freemarkerVersion")
   testImplementation("io.vertx:vertx-junit5")
   testImplementation("org.junit.jupiter:junit-jupiter:$junitJupiterVersion")
 }

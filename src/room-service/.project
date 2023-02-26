@@ -20,4 +20,11 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>room-dashboard</name>
+			<type>2</type>
+			<location>C:/Users/pesic/Desktop/assignment-03/smart-room/src/room-dashboard</location>
+		</link>
+	</linkedResources>
 </projectDescription>
