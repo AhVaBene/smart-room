@@ -22,6 +22,16 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>Java</name>
+			<type>2</type>
+			<location>C:/Users/pesic/Desktop/assignment-03/smart-room/src/room-controller/Java</location>
+		</link>
+		<link>
+			<name>lib</name>
+			<type>2</type>
+			<location>C:/Users/pesic/Desktop/assignment-03/smart-room/src/room-controller/Java/lib</location>
+		</link>
+		<link>
 			<name>room-dashboard</name>
 			<type>2</type>
 			<location>C:/Users/pesic/Desktop/assignment-03/smart-room/src/room-dashboard</location>

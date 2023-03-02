@@ -56,13 +56,13 @@ public class HandlerDashboard implements Handler<RoutingContext>{
                  		+ "btn.addEventListener(\"click\", e=>{\n"
                  		+ "	e.preventDefault()\n"
                  		+ "	axios.post(\"/control\", {control:true})\n"
-                 		+ "	.then(res=>{console.log(\"control\")})\n"
+                 		+ "	.then(res=>{console.log(res)})\n"
                  		+ "})\n"
                  		+ "\n"
                  		+ "btn2.addEventListener(\"click\", e=>{\n"
                  		+ "	e.preventDefault()\n"
                  		+ "	axios.post(\"/control\", {control:false})\n"
-                 		+ "	.then(res=>{console.log(\"control\")})\n"
+                 		+ "	.then(res=>{console.log(\"prova\")})\n"
                  		+ "})\n"
                  		+ "\n"
                  		+ "slider.addEventListener(\"change\", e=>{\n"
@@ -76,7 +76,6 @@ public class HandlerDashboard implements Handler<RoutingContext>{
                  		+ "})</script>")
                  .append("</body>\n")
                  .append("</html>");
-
 	     response.end(htmlBuilder.toString());
 	}
 }

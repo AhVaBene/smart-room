@@ -12,13 +12,16 @@ public class GlobalInfo {
 	private static boolean enoughLight = false;
 	private static boolean rollControl = false;
 	private static boolean lightControl = false;
-	private static int alpha = 0;
+	private static boolean currentLight = false;
+	private static int currentAlpha = 180;
+	private static int alpha = 180;
 	private static boolean lastLight = false;
 	private static LocalTime lastTime = LocalTime.now();
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 	private static Map<String, Long> durationLightOn = new HashMap<>();
 	
 	public static void updateLightHours(boolean ll) {
+		enoughLight = ll;
 		if(lastLight == false && ll == true) {
 			lastTime = LocalTime.now();
 			lastLight = true;
@@ -67,6 +70,22 @@ public class GlobalInfo {
 	
 	public static boolean getAdminControl() {
 		return adminControl;
+	}
+	
+	public static boolean getEnoughLight() {
+		return enoughLight;
+	}
+	
+	public static String getTime() {
+		return formatter.format(LocalTime.now()).toString();
+	}
+	
+	public static void setCurrentAlpha(int a) {
+		currentAlpha = a;
+	}
+	
+	public static void setCurrentLight(boolean l) {
+		currentLight = l;
 	}
 	
 }
