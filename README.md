@@ -1,9 +1,13 @@
 # smart-room
-
+## Arduino setup
+pin 4 Servo motor
+pin 5 led
+N.B 3 librerie esterne: TimerOne, ServoMotorTimer2, Arduino_JSON
+## Java setup
 Da eclipse apri il progetto java che sta nella cartella room-service
 il programma principale è MyhttpServer.java
 ## API HTTP
-- room-dashboard: http://localhost:8080/prova (sarà cambiato)
+- room-dashboard: http://localhost:8080/
 - esp: inviare POST JSON ad http://localhost:8080/esp {presence:boolean, enoughLight:boolean} presence è vero se è presente qualcuno nella stanza, mentre enoughLight è vero se c'è abbastanza luce i.e. (livello della luce > threshold)
 the http server is on http://localhost:8080
 
