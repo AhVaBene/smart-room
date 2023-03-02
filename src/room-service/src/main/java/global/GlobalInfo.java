@@ -22,14 +22,6 @@ public class GlobalInfo {
 	
 	public static void updateLightHours(boolean ll) {
 		enoughLight = ll;
-		if(lastLight == false && ll == true) {
-			lastTime = LocalTime.now();
-			lastLight = true;
-		}else if(lastLight == true && ll == false) {
-			lastLight = false;
-			long hours = Duration.between(lastTime, LocalTime.now()).toHours();
-			durationLightOn.put(formatter.format(lastTime), hours);
-		}
 	}
 	
 	public static void updatePresence(boolean p) {
@@ -84,8 +76,26 @@ public class GlobalInfo {
 		currentAlpha = a;
 	}
 	
-	public static void setCurrentLight(boolean l) {
-		currentLight = l;
+	public static void setCurrentLight(boolean ll) {
+		currentLight = ll;
+		if(lastLight == false && ll == true) {
+			lastTime = LocalTime.now();
+			lastLight = true;
+		}else if(lastLight == true && ll == false) {
+			lastLight = false;
+			long hours = Duration.between(lastTime, LocalTime.now()).toHours();
+			durationLightOn.put(formatter.format(lastTime), hours);
+		}
 	}
+	
+	public static int getCurrentAlpha() {
+		return currentAlpha;
+	}
+	
+	public static boolean getCurrentLight() {
+		return currentLight;
+	}
+	
+	
 	
 }

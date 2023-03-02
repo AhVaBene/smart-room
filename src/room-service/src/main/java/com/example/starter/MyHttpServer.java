@@ -11,6 +11,7 @@ import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
@@ -30,7 +31,10 @@ public class MyHttpServer extends AbstractVerticle {
         router.post("/control").handler(this::handleControlRequest);
         router.post("/setAlpha").handler(this::handleAlphaRequest);
         router.post("/setLight").handler(this::handleLightRequest);
-        router.get("/prova").handler(handler);
+        router.get("/lightState").handler(this::handleLightStateRequest);
+        router.get("/rollerState").handler(this::handleRollerStateRequest);
+        router.get("/lightConsumption").handler(this::handleLightConsumptionRequest);
+        router.get("/").handler(handler);
 
         server.requestHandler(router);
 
@@ -58,6 +62,44 @@ public class MyHttpServer extends AbstractVerticle {
         });
     }
     
+    
+    private void handleLightStateRequest(RoutingContext routingContext) {
+    	HttpServerResponse response = routingContext.response();
+    	response.putHeader("content-type", "application/json");
+    	
+    	JsonObject jsonObject = new JsonObject();
+        jsonObject.put("lightState", GlobalInfo.getCurrentLight());
+        response.end(jsonObject.encode());        
+    }
+    
+    private void handleRollerStateRequest(RoutingContext routingContext) {
+    	HttpServerResponse response = routingContext.response();
+    	response.putHeader("content-type", "application/json");
+    	
+    	JsonObject jsonObject = new JsonObject();
+        jsonObject.put("alpha", GlobalInfo.getCurrentAlpha());
+        response.end(jsonObject.encode());    
+    }
+    
+    private void handleLightConsumptionRequest(RoutingContext routingContext) {
+    	HttpServerResponse response = routingContext.response();
+    	response.putHeader("content-type", "application/json");
+    	
+    	JsonObject jsonObject = new JsonObject();
+    	
+    	JsonArray jsonArray = new JsonArray();
+    	
+    	for (Map.Entry<String, Long> e : GlobalInfo.getDurationLight().entrySet()) {
+    		JsonObject obj = new JsonObject();
+    		obj.put("time", e.getKey());
+    		obj.put("hours", e.getValue());
+    		jsonArray.add(obj);
+    		
+    	}
+        jsonObject.put("array", jsonArray);
+        response.end(jsonObject.encode());
+        
+    }
     
     private void handleControlRequest(RoutingContext routingContext) {
     	HttpServerRequest request = routingContext.request();
