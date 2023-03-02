@@ -1,9 +1,6 @@
 package src.main.util;
 
 import java.util.concurrent.*;
-
-import global.GlobalInfo;
-import io.vertx.core.json.JsonObject;
 import jssc.*;
 
 public class SerialCommChannel implements CommChannel, SerialPortEventListener {
@@ -109,35 +106,6 @@ public class SerialCommChannel implements CommChannel, SerialPortEventListener {
                 System.out.println("Error in receiving string from COM-port: " + ex);
             }
         }
-	}
-	
-	public static void main(String[] args) throws Exception{
-		String[] portNames = SerialPortList.getPortNames();
-		int i;
-	  	for (i = 0; i < portNames.length; i++){
-		    System.out.println(portNames[i]);
-		}
-		SerialCommChannel channel = new SerialCommChannel(portNames[i-1],9600);
-		System.out.println("Waiting Arduino for rebooting...");		
-		Thread.sleep(4000);
-		System.out.println("Ready.");	
-		String msg;
-		while(true){
-			//Thread.sleep(200);
-			JsonObject jsonObject = new JsonObject();
-			jsonObject.put("presence", GlobalInfo.getPresence());
-			jsonObject.put("enoughLight", GlobalInfo.getEnoughLight());
-			jsonObject.put("adminControl", GlobalInfo.getAdminControl());
-			jsonObject.put("alpha", GlobalInfo.getAlpha());
-			jsonObject.put("lightControl", GlobalInfo.getLight());
-			jsonObject.put("time", GlobalInfo.getTime());
-			channel.sendMsg(jsonObject.encode());
-					
-			if(channel.isMsgAvailable()) {
-				msg = channel.receiveMsg();
-				System.out.println("the message: "+msg);
-			}
-		}
 	}
 
 }

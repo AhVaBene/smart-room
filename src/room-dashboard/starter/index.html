@@ -10,6 +10,7 @@
 		}
 	</style>
 	<body>
+		<h1>Dashboard</h1>
 		<table>
 			<thead>
 				<tr>
@@ -20,17 +21,80 @@
 			<tbody>
 			</tbody>
 		</table>
+		<br/>
+			<span>Light State:</span>
+			<p class="light-state"></p>
+			<span>Degree of Roller Blind: </span>
+			<p class="roller-state"></p>
+		<br/>
 		<button class="control">Take Control</button>
-		<label for="slider">Roller Blind control:</label>
-		<input type="range" id="slider" min="0" max="180" value="0" class="slider" name="slider"/></br>
+		<button class="interrupt">Give Control</button><br/>
+		<br/>
+		<label for="slider">Roller Blind control in %:</label><br/>
+		<input type="range" id="slider" min="0" max="100" value="0" class="slider" name="slider"/></br>
+		<p>Light switch:</p>
 		<label><input type="radio" name="option" value="on"> ON</label><br/>
 		<label><input type="radio" name="option" value="off"> OFF</label><br/>
 		<script>
-			const ws = new WebSocket("ws://localhost:8080/events");
-    		ws.onmessage = function(event) {
-     			const message = event.data.replace(/^data: /, "");
-      			document.getElementById("messages").innerHTML += message + "<br>";
-      			};
+			var btn = document.querySelector(".control")
+            var btn2 = document.querySelector(".interrupt")
+            var slider = document.querySelector("input[type=range]")
+            var radios = document.querySelectorAll("input[type=radio]")
+			var light = document.querySelector(".light-state")
+			var roller = document.querySelector(".roller-state")
+			var tbody = document.querySelector("tbody")
+
+			setInterval(()=>{
+				axios.get("/lightConsumption")
+				.then(res=>{
+					tbody.innerHTML = ""
+					res["data"]["array"].forEach(obj=>{
+						var tr = document.createElement("tr")
+						var td1 = document.createElement("td")
+						var td2 = document.createElement("td")
+
+						td1.innerHTML = obj["time"]
+						td2.innerHTML = obj["hours"]
+
+						tr.appendChild(td1)
+						tr.appendChild(td2)
+
+						tbody.appendChild(tr)
+					})
+				})
+				
+				axios.get("/lightState")
+				.then(res=>{
+					light.innerHTML = res["data"]["lightState"]?"ON":"OFF"
+				})
+
+				axios.get("/rollerState")
+				.then(res=>{
+					roller.innerHTML = res["data"]["alpha"]
+				})
+			}, 1000)
+                 		
+			btn.addEventListener("click", e=>{
+				e.preventDefault()
+				axios.post("/control", {control:true})
+				.then(res=>{console.log(res)})
+			})
+		
+			btn2.addEventListener("click", e=>{
+				e.preventDefault()
+				axios.post("/control", {control:false})
+				.then(res=>{console.log("prova")})
+			})
+			
+			slider.addEventListener("change", e=>{
+				let v = Math.round((slider.value/100)*180)
+				axios.post("/setAlpha", {alpha:v})
+			})
+			radios.forEach(radio=>{
+				radio.addEventListener("click", e=>{
+					axios.post("/setLight", {light:radio.value})
+				})
+			})
 		</script>
 	</body>
 </html>

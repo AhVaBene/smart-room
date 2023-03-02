@@ -76,6 +76,7 @@ public class HandlerDashboard implements Handler<RoutingContext>{
                  		+ "})</script>")
                  .append("</body>\n")
                  .append("</html>");
-	     response.end(htmlBuilder.toString());
+	     //response.end(htmlBuilder.toString());
+	     response.sendFile("../room-dashboard/starter/index.html");
 	}
 }
