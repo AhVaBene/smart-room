@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>starter</name>
+	<comment>Project room-service created by Buildship.</comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>org.eclipse.buildship.core.gradleprojectbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>Java</name>
+			<type>2</type>
+			<location>C:/Users/pesic/Desktop/assignment-03/smart-room/src/room-controller/Java</location>
+		</link>
+		<link>
+			<name>lib</name>
+			<type>2</type>
+			<location>C:/Users/pesic/Desktop/assignment-03/smart-room/src/room-controller/Java/lib</location>
+		</link>
+		<link>
+			<name>room-dashboard</name>
+			<type>2</type>
+			<location>C:/Users/pesic/Desktop/assignment-03/smart-room/src/room-dashboard</location>
+		</link>
+	</linkedResources>
+</projectDescription>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Dashboard</title>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<head>
+	<style>
+		table, th, td{
+			border:1px solid black;
+		}
+	</style>
+	<body>
+		<table>
+			<thead>
+				<tr>
+					<th>Starting time</th>
+					<th>Hours on</th>
+				</tr>
+			</thead>
+			<tbody>
+			</tbody>
+		</table>
+		<button class="control">Take Control</button>
+		<label for="slider">Roller Blind control:</label>
+		<input type="range" id="slider" min="0" max="180" value="0" class="slider" name="slider"/></br>
+		<label><input type="radio" name="option" value="on"> ON</label><br/>
+		<label><input type="radio" name="option" value="off"> OFF</label><br/>
+		<script>
+			const ws = new WebSocket("ws://localhost:8080/events");
+    		ws.onmessage = function(event) {
+     			const message = event.data.replace(/^data: /, "");
+      			document.getElementById("messages").innerHTML += message + "<br>";
+      			};
+		</script>
+	</body>
+</html>
