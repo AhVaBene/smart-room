@@ -20,7 +20,7 @@ public class GlobalInfo {
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
 	private static Map<String, Long> durationLightOn = new HashMap<>();
 	
-	public static void updateLightHours(boolean ll) {
+	public static void updateEnoughLight(boolean ll) {
 		enoughLight = ll;
 	}
 	

@@ -15,6 +15,7 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import starter.HandlerDashboard;
 import jssc.*;
+import src.main.util.MqttBroker;
 import src.main.util.SerialCommChannel;
 import io.vertx.mqtt.MqttServer;
 
@@ -51,7 +52,7 @@ public class MyHttpServer extends AbstractVerticle {
             Map<String, Object> map = jsonObject.getMap();
             Map<String, Boolean> finalMap = map.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, e-> Boolean.valueOf(String.valueOf(e.getValue()))));
             System.out.println(finalMap);
-            GlobalInfo.updateLightHours(finalMap.get("enoughLight"));
+            GlobalInfo.updateEnoughLight(finalMap.get("enoughLight"));
             GlobalInfo.updatePresence(finalMap.get("presence"));
             //System.out.println(GlobalInfo.getDurationLight());
             HttpServerResponse response = request.response();
@@ -153,6 +154,8 @@ public class MyHttpServer extends AbstractVerticle {
 		MyHttpServer service = new MyHttpServer();
 		vertx.deployVerticle(service);
 		
+		//start mqtt server
+		MqttBroker.start();
 		
 		String[] portNames = SerialPortList.getPortNames();
 		int i;
@@ -182,6 +185,7 @@ public class MyHttpServer extends AbstractVerticle {
 				try {
 				JsonObject jsonObj = new JsonObject(msg.trim());
 				GlobalInfo.setCurrentAlpha(Integer.parseInt(jsonObj.getValue("alpha").toString()));
+				System.out.println(jsonObj.getValue("alpha"));
 				GlobalInfo.setCurrentLight(Boolean.parseBoolean(jsonObj.getValue("light").toString()));
 				}catch(Exception e) {
 					System.out.println("Error in parsing the json reques");

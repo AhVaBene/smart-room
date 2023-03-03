@@ -31,7 +31,7 @@ void RollerBlindsTask::tick(){
       if(control){
         this->state = FREE;
         this->servo->setPosition(alpha);
-      }else if(!isSomeonePresent && time>1900 && time <800){
+      }else if(!isSomeonePresent && (time>1900 || time <800)){
         this->state = DOWN;
         this->servo->setPosition(ROLLED_DOWN);
         alpha = ROLLED_DOWN;
@@ -43,7 +43,7 @@ void RollerBlindsTask::tick(){
         this->state = UP;
         this->servo->setPosition(ROLLED_UP);
         alpha = ROLLED_UP;
-      }else if(!control && (!isSomeonePresent && time>1900 && time <800)){
+      }else if(!control && (!isSomeonePresent && (time>1900 || time <800))){
         this->state = DOWN;
         this->servo->setPosition(ROLLED_DOWN);
         alpha = ROLLED_DOWN;
