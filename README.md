@@ -12,7 +12,9 @@ il programma principale è MyhttpServer.java
 the http server is on http://localhost:8080
 
 ## API MQTT
-Missing
+Added the MQTT server on locahost:1883
+- On topic "presence" invia boolean string e.g.("false"/"true") true se qualcuno è presente nella stanza
+- On topic "light" invia boolean string e.g.("false"/"true") true se c'è abbastanza luce i.e. (livello della luce > threshold)
 
 ## API Bluetooth
--inviare periodicamente in formato json {androidControl:boolean, lightControl:boolean, alpha: int} androidControl è vero se si vole prender econtrollo del sistema da app, non ancora testato funzionamento (Soggetto a possibili cambiamenti)
+-inviare periodicamente in formato json {androidControl:boolean, lightControl:boolean, alpha: int} androidControl è vero se si vuole prendere controllo del sistema da app, non ancora testato il funzionamento (Soggetto a possibili cambiamenti)
