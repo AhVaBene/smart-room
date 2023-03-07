@@ -15,6 +15,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
 	<classpathentry kind="lib" path="lib/jssc-2.9.4.jar"/>
-	<classpathentry kind="lib" path="lib/jSerialComm-2.9.3.jar"/>
+	<classpathentry kind="lib" path="lib/bluecove-2.1.1.jar"/>
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>

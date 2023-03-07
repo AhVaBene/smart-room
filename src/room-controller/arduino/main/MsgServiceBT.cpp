@@ -7,12 +7,16 @@ MsgServiceBTClass::MsgServiceBTClass(int rxPin, int txPin){
 }
 
 void MsgServiceBTClass::init(){
-  content.reserve(256);
   channel->begin(9600);
   availableMsg = NULL;
 }
 
-bool MsgServiceBTClass::sendMsg(Msg msg){
+bool MsgServiceBTClass::sendMsg(Msg msg){  
+  // for(int i = 0;i<msg.getContent().length(); i++){
+  //   channel->write((char) msg.getContent()[i]);
+  // }
+  // channel->write("\n");
+  // Serial.println(msg.getContent());
   channel->println(msg.getContent());  
 }
 

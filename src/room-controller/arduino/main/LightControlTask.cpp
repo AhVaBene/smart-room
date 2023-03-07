@@ -12,14 +12,10 @@ void LightControlTask::init(int period){
 }
 
 void LightControlTask::tick(){
-  if(control){
-    if(androidControl){
-    }
-  }
   previousLightState = lightState;
   switch(this->state){
     case OFF:
-      if(control){
+      if(control || androidControl){
         if(lightControl){
           this->led->switchOn();
           this->state = ON;
@@ -32,7 +28,7 @@ void LightControlTask::tick(){
       }
     break;
     case ON:
-      if(control){
+      if(control || androidControl){
         if(!lightControl){
           this->led->switchOff();
           this->state = OFF;

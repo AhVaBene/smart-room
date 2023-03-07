@@ -20,54 +20,47 @@ void InputControlTask::tick(){
     if(JSON.typeof(respServer) == "undefined"){
       msgManager->send(String("Bad structure"));
     }
-    // else{
-    //   msgManager->send(msg);
-    // }
   }
 
-  msg = msgManagerBT->receiveMsg()->getContent();
-  if(msg.length() != 0){
-    respBT = JSON.parse(msg);
-    if(JSON.typeof(respBT) == "undefined"){
-      msgManagerBT->sendMsg(String("Bad structure"));
+
+  if(msgManagerBT->isMsgAvailable()){
+    Msg* m = msgManagerBT->receiveMsg();
+    msg = m->getContent();
+    if(msg.length() > 0){
+      respBT = JSON.parse(msg);
+      if(JSON.typeof(respBT) == "undefined"){
+        msgManagerBT->sendMsg(*(new Msg(String("Bad structure"))));
+      }else{
+        msgManagerBT->sendMsg(*m);
+      }
+        //Serial.println("AndroidContorl: "+msg);
     }
-    // else{
-    //   msgManagerBT->sendMsg(msg);
-    // }
   }
-
+  
   if(respServer.hasOwnProperty("adminControl")){
     control = (bool) respServer["adminControl"];
   }
-  if(respBT.hasOwnProperty("adroidControl")){
+  if(respBT.hasOwnProperty("androidControl")){
     androidControl = (bool) respBT["androidControl"];
-  }
-  /*we give more priority to the admin dashboard respect to the application*/
-  if(control){
-    androidControl = false;
-  }
-  if(androidControl){
-    control = true;
   }
   switch(this->state){
     case IDLE:
       if(control){
-        if(androidControl){
+        if(respServer.hasOwnProperty("lightControl")){
+          lightControl = (bool) respServer["lightControl"];
+        }
+        if(respServer.hasOwnProperty("alpha")){
+          alpha = (int) respServer["alpha"];
+        }
+        this->state = MANUAL;
+      }else if(androidControl){
           if(respBT.hasOwnProperty("lightControl")){
             lightControl = (bool) respBT["lightControl"];
           }
           if(respBT.hasOwnProperty("alpha")){
             alpha = (int) respBT["alpha"];
           }
-        }else{
-          if(respServer.hasOwnProperty("lightControl")){
-            lightControl = (bool) respServer["lightControl"];
-          }
-          if(respServer.hasOwnProperty("alpha")){
-            alpha = (int) respServer["alpha"];
-          }
-        }
-        this->state = MANUAL;
+          this->state = MANUAL;
       }else{
         if(respServer.hasOwnProperty("presence")){
           isSomeonePresent = (bool) respServer["presence"];
@@ -83,7 +76,7 @@ void InputControlTask::tick(){
     break;
 
     case MANUAL:
-      if(!control){
+      if(!control && !androidControl){
         if(respServer.hasOwnProperty("presence")){
           isSomeonePresent = (bool) respServer["presence"];
         }

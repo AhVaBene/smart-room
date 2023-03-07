@@ -13,12 +13,10 @@ void RollerBlindsTask::init(int period){
     this->servo->setPosition(ROLLED_DOWN);
 }
 void RollerBlindsTask::tick(){
-  if(control){
-  }
   previousAlpha = alpha;
   switch(this->state){
     case DOWN:
-      if(control){
+      if(control || androidControl){
         this->state = FREE;
         this->servo->setPosition(alpha);
       }else if(isSomeonePresent && time>800 && time < 1900){
@@ -28,7 +26,7 @@ void RollerBlindsTask::tick(){
       }
     break;
     case UP:
-      if(control){
+      if(control || androidControl){
         this->state = FREE;
         this->servo->setPosition(alpha);
       }else if(!isSomeonePresent && (time>1900 || time <800)){
@@ -39,11 +37,11 @@ void RollerBlindsTask::tick(){
     break;
     case FREE:
       this->servo->setPosition(alpha);
-      if(!control && (isSomeonePresent && time>800 && time < 1900)){
+      if(!control && !androidControl && (isSomeonePresent && time>800 && time < 1900)){
         this->state = UP;
         this->servo->setPosition(ROLLED_UP);
         alpha = ROLLED_UP;
-      }else if(!control && (!isSomeonePresent && (time>1900 || time <800))){
+      }else if(!control && !androidControl && (!isSomeonePresent && (time>1900 || time <800))){
         this->state = DOWN;
         this->servo->setPosition(ROLLED_DOWN);
         alpha = ROLLED_DOWN;
