@@ -36,13 +36,18 @@ void InputControlTask::tick(){
         //Serial.println("AndroidContorl: "+msg);
     }
   }
-  
+
   if(respServer.hasOwnProperty("adminControl")){
     control = (bool) respServer["adminControl"];
   }
   if(respBT.hasOwnProperty("androidControl")){
     androidControl = (bool) respBT["androidControl"];
   }
+  /*the dashboard has more priority respect to the application*/
+  if(control && androidControl){
+    androidControl = false;
+  }
+
   switch(this->state){
     case IDLE:
       if(control){
