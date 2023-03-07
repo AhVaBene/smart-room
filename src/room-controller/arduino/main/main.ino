@@ -8,8 +8,8 @@
 
 #define LIGHT_PIN 5
 #define SERVO_PIN 4
-#define RX 2
-#define TX 3
+#define RX 10
+#define TX 11
 
 bool control=false;
 bool lightControl = false;

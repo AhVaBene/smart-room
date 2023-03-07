@@ -38,7 +38,7 @@ public class SerialCommChannel implements CommChannel, SerialPortEventListener {
 			synchronized (serialPort) {
 				for(int i = 0;i<bytes.length;i++) {
 					serialPort.writeByte(bytes[i]);
-					Thread.sleep(6);
+					Thread.sleep(7);
 				}
 				//serialPort.writeBytes(bytes);
 			}
