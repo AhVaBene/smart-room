@@ -7,9 +7,8 @@ void InputControlTask::init(int period){
   this->state = IDLE;
 
 }
-/*missing bluetooth*/
+/*when eturning from control doesn' update the motor and the status of the motor*/
 void InputControlTask::tick(){
-  //msgManagerBT->sendMsg(String("CTRL"));
   String msg;
   JSONVar respServer;
   JSONVar respBT;
