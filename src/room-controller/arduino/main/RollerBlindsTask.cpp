@@ -45,6 +45,10 @@ void RollerBlindsTask::tick(){
         this->state = DOWN;
         this->servo->setPosition(ROLLED_DOWN);
         alpha = ROLLED_DOWN;
+      }else if(!control && !androidControl){
+        this->state = DOWN;
+        this->servo->setPosition(ROLLED_DOWN);
+        alpha = ROLLED_DOWN;
       }
     break;
   }

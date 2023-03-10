@@ -14,6 +14,9 @@ import android.os.Handler;
 import android.util.Log;
 import android.widget.Button;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
@@ -45,12 +48,25 @@ public class LedSwitchActivity extends AppCompatActivity {
     private void sendMessage() {
         new Thread(() -> {
             try {
-                String message = ledState ? "off\n" : "on\n";
+                JSONObject obj = new JSONObject();
+                if(ledState){
+                    obj.put("androidControl", true);
+                    obj.put("lightControl",true);
+                    obj.put("alpha",100);
+                }else{
+                    obj.put("androidControl", false);
+                    obj.put("lightControl",false);
+                    obj.put("alpha",20);
+                }
+
+                String message = obj.toString() + "\n";
                 bluetoothOutputStream.write(message.getBytes(StandardCharsets.UTF_8));
                 ledState = !ledState;
                 runOnUiThread(() -> remoteButton.setBackgroundColor(ledState? Color.GREEN : Color.RED));
             } catch (IOException e) {
                 e.printStackTrace();
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
             }
         }).start();
     }
