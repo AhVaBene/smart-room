@@ -17,7 +17,7 @@ void InputControlTask::tick(){
   if(msg.length() != 0){
     respServer = JSON.parse(msg);
     if(JSON.typeof(respServer) == "undefined"){
-      msgManager->send(String("Bad structure"));
+      msgManager->send(String("Bad structure from server"));
     }
   }
 
@@ -28,7 +28,7 @@ void InputControlTask::tick(){
     if(msg.length() > 0){
       respBT = JSON.parse(msg);
       if(JSON.typeof(respBT) == "undefined"){
-        msgManagerBT->sendMsg(*(new Msg(String("Bad structure"))));
+        msgManager->send((String("Bad structure from BT")));
       }else{
         msgManagerBT->sendMsg(*m);
       }

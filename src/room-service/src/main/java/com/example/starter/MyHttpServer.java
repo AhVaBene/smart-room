@@ -169,7 +169,6 @@ public class MyHttpServer extends AbstractVerticle {
 		System.out.println("Ready.");	
 		String msg;
 		while(true){
-			//Thread.sleep(200);
 			JsonObject jsonObject = new JsonObject();
 			jsonObject.put("presence", GlobalInfo.getPresence());
 			jsonObject.put("enoughLight", GlobalInfo.getEnoughLight());
@@ -188,7 +187,9 @@ public class MyHttpServer extends AbstractVerticle {
 				System.out.println(jsonObj.getValue("alpha"));
 				GlobalInfo.setCurrentLight(Boolean.parseBoolean(jsonObj.getValue("light").toString()));
 				}catch(Exception e) {
-					System.out.println("Error in parsing the json reques");
+					System.out.println("Error in parsing the json request");
+					channel.clearBuffer();
+					Thread.sleep(100);
 				}
 			}
 		}
