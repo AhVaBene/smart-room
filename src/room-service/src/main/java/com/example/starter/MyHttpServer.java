@@ -15,6 +15,7 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import starter.HandlerDashboard;
 import jssc.*;
+import src.main.util.MQTTClient;
 import src.main.util.MqttBroker;
 import src.main.util.SerialCommChannel;
 import io.vertx.mqtt.MqttServer;
@@ -150,12 +151,13 @@ public class MyHttpServer extends AbstractVerticle {
     }
     
     public static void main(String[] args) throws Exception{
+    	MQTTClient.run();
     	Vertx vertx = Vertx.vertx();
 		MyHttpServer service = new MyHttpServer();
 		vertx.deployVerticle(service);
 		
 		//start mqtt server
-		MqttBroker.start();
+		//MqttBroker.start();
 		
 		String[] portNames = SerialPortList.getPortNames();
 		int i;

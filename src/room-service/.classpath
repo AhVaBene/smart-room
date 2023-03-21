@@ -16,5 +16,6 @@
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
 	<classpathentry kind="lib" path="lib/jssc-2.9.4.jar"/>
 	<classpathentry kind="lib" path="lib/bluecove-2.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.paho.client.mqttv3-1.1.2-20170804.042534-34.jar"/>
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>
