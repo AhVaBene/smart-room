@@ -4,7 +4,7 @@ import io.netty.handler.codec.mqtt.MqttQoS;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.mqtt.MqttClient;
-
+import io.vertx.mqtt.MqttClientOptions;
 /*
  * MQTT Agent
  */
@@ -14,10 +14,13 @@ public class MQTTAgent extends AbstractVerticle {
 	}
 
 	@Override
-	public void start() {		
-		MqttClient client = MqttClient.create(vertx);
+	public void start() {
+		MqttClientOptions options = new MqttClientOptions();
+		options.setUsername("merkp");
+		options.setPassword("Marcos28");
+		MqttClient client = MqttClient.create(vertx, options);
 
-		client.connect(1883, "localhost", c -> {
+		client.connect(8883, "790e9765770b4666b4cfe938fdb1b081.s2.eu.hivemq.cloud", c -> {
 
 			log("connected");
 			

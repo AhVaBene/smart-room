@@ -23,4 +23,6 @@ public interface CommChannel {
 	 * @return
 	 */
 	boolean isMsgAvailable();
+	
+	void clearBuffer();
 }

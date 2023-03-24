@@ -12,11 +12,6 @@ void MsgServiceBTClass::init(){
 }
 
 bool MsgServiceBTClass::sendMsg(Msg msg){  
-  // for(int i = 0;i<msg.getContent().length(); i++){
-  //   channel->write((char) msg.getContent()[i]);
-  // }
-  // channel->write("\n");
-  // Serial.println(msg.getContent());
   channel->println(msg.getContent());  
 }
 

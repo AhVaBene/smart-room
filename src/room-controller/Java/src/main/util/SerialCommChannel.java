@@ -26,6 +26,10 @@ public class SerialCommChannel implements CommChannel, SerialPortEventListener {
 		// serialPort.addEventListener(this, SerialPort.MASK_RXCHAR);
 		serialPort.addEventListener(this);
 	}
+	
+	public void clearBuffer() {
+		queue.clear();
+	}
 
 	@Override
 	public void sendMsg(String msg) {
@@ -38,7 +42,7 @@ public class SerialCommChannel implements CommChannel, SerialPortEventListener {
 			synchronized (serialPort) {
 				for(int i = 0;i<bytes.length;i++) {
 					serialPort.writeByte(bytes[i]);
-					Thread.sleep(7);
+					Thread.sleep(10);
 				}
 				//serialPort.writeBytes(bytes);
 			}

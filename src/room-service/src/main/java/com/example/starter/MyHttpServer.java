@@ -15,6 +15,7 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import starter.HandlerDashboard;
 import jssc.*;
+import src.main.util.MQTTClient;
 import src.main.util.MqttBroker;
 import src.main.util.SerialCommChannel;
 import io.vertx.mqtt.MqttServer;
@@ -150,12 +151,13 @@ public class MyHttpServer extends AbstractVerticle {
     }
     
     public static void main(String[] args) throws Exception{
+    	MQTTClient.run();
     	Vertx vertx = Vertx.vertx();
 		MyHttpServer service = new MyHttpServer();
 		vertx.deployVerticle(service);
 		
 		//start mqtt server
-		MqttBroker.start();
+		//MqttBroker.start();
 		
 		String[] portNames = SerialPortList.getPortNames();
 		int i;
@@ -169,7 +171,6 @@ public class MyHttpServer extends AbstractVerticle {
 		System.out.println("Ready.");	
 		String msg;
 		while(true){
-			//Thread.sleep(200);
 			JsonObject jsonObject = new JsonObject();
 			jsonObject.put("presence", GlobalInfo.getPresence());
 			jsonObject.put("enoughLight", GlobalInfo.getEnoughLight());
@@ -188,7 +189,9 @@ public class MyHttpServer extends AbstractVerticle {
 				System.out.println(jsonObj.getValue("alpha"));
 				GlobalInfo.setCurrentLight(Boolean.parseBoolean(jsonObj.getValue("light").toString()));
 				}catch(Exception e) {
-					System.out.println("Error in parsing the json reques");
+					System.out.println("Error in parsing the json request");
+					channel.clearBuffer();
+					Thread.sleep(100);
 				}
 			}
 		}
